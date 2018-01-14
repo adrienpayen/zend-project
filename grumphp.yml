@@ -1,0 +1,8 @@
+parameters:
+    tasks:
+        phpversion:
+            project: '7.1'
+        composer: ~
+        securitychecker: ~
+        phpcs:
+            standard: PSR2

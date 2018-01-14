@@ -7,8 +7,8 @@
 
 namespace Application;
 
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
-use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -20,27 +20,7 @@ return [
                     'route'    => '/',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
-            'ping' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/ping',
-                    'defaults' => [
-                        'controller' => Controller\PingController::class,
-                        'action'     => 'ping',
-                    ],
-                ],
-            ],
-            'application' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/application[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'action'     => 'index'
                     ],
                 ],
             ],
@@ -49,12 +29,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
-            Controller\PingController::class => Controller\PingControllerFactory::class,
-        ],
-    ],
-    'service_manager' => [
-        'factories' => [
-            \DateTimeImmutable::class => \Application\DateTimeImmutableFactory::class
+
         ],
     ],
     'view_manager' => [
@@ -69,30 +44,9 @@ return [
             'application/ping/ping' => __DIR__ . '/../view/application/ping/ping.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'form/default'             => __DIR__ . '/../view/form/index.phtml',
+            'header' => __DIR__ . '/../view/layout/header.phtml',
+            'footer' => __DIR__ . '/../view/layout/footer.phtml',
         ],
-    ],
-    'app' => [
-        'date' => '2017-12-01',
-    ],
-    'doctrine' => [
-        'driver' => [
-            // defines an annotation driver with two paths, and names it `my_annotation_driver`
-            'application_driver' => [
-                'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
-                'cache' => 'array',
-                'paths' => [
-                    __DIR__.'/../src/Entity/',
-                ],
-            ],
-
-            // default metadata driver, aggregates all other drivers into a single one.
-            // Override `orm_default` only if you know what you're doing
-            'orm_default' => [
-                'drivers' => [
-                    // register `application_driver` for any entity under namespace `Application\Entity`
-                    'Application\Entity' => 'application_driver',
-                ],
-            ],
-        ],
-    ],
+    ]
 ];

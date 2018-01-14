@@ -12,5 +12,21 @@
  */
 
 return [
-    // ...
+    'navigation' => [
+        'default' => [
+            [
+                'label' => 'Home',
+                'route' => 'home'
+            ],
+            [
+                'label' => 'Meetup',
+                'route' => 'meetup'
+            ]
+        ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            'navigation' => Zend\Navigation\Service\DefaultNavigationFactory::class
+        ]
+    ]
 ];

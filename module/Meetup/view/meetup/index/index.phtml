@@ -1,0 +1,41 @@
+<h1>Meetup</h1>
+
+<a href="<?= $this->url('meetup/add'); ?>">
+    <button type="button" class="btn btn-default btn-lg btn-block">Add</button>
+</a>
+
+
+<table class="table table-responsive">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+
+        $tr = '<tr><th scope="row">%s</th><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>';
+
+        if (count($this->meetups) > 0) {
+            foreach ($this->meetups as $meetup) {
+                echo sprintf(
+                        $tr,
+                        $meetup->getId(),
+                        $meetup->getTitle(),
+                        $meetup->getDescription(),
+                        $meetup->getStartDate()->format('Y-m-d'),
+                        $meetup->getEndDate()->format('Y-m-d'),
+                        '<a href="'.$this->url('meetup/edit', ['id' => $meetup->getId()]).'"><span class="glyphicon glyphicon-pencil"></span></a>',
+                        '<a href="'.$this->url('meetup/delete', ['id' => $meetup->getId()]).'"><span class="glyphicon glyphicon-trash"></span></a>'
+                );
+            }
+        } else {
+            echo '<th>No meetup.</th>';
+        }
+    ?>
+    </tbody>
+</table>

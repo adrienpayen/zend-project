@@ -1,0 +1,39 @@
+<?php if($this->success === true): ?>
+    <div class="alert alert-success" role="alert">
+        Your message has been delivered.
+    </div>
+<?php endif;?>
+
+<?php
+    $form = $this->form;
+
+    echo $this->form()->openTag($form);
+?>
+
+<?php foreach ($form->getElements() as $element): ?>
+
+    <div class="form-group">
+        <label for="<?= $element->getName() ?>">
+            <?= $element->getLabel(); ?>
+        </label>
+
+        <?php if($element->getAttributes()['type'] === 'textarea'): ?>
+            <?= $this->formTextarea($element); ?>
+        <?php elseif($element->getAttributes()['type'] === 'date'): ?>
+            <?= $this->formDate($element); ?>
+        <?php else: ?>
+            <?= $this->formInput($element); ?>
+        <?php endif; ?>
+
+        <?php if ($this->formElementErrors($element) !== ''): ?>
+            <div class="alert alert-danger">
+                <?= $this->formElementErrors($element); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+
+<?php endforeach; ?>
+
+<?php
+    echo $this->form()->closeTag($form);
+?>
