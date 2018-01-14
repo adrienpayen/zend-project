@@ -51,7 +51,7 @@ final class WriteController extends AbstractActionController
         $data = $this->params()->fromPost();
         $form->setData($data);
 
-        if(!$form->isValid()) {
+        if (!$form->isValid()) {
             return $viewModel;
         }
 
@@ -92,7 +92,7 @@ final class WriteController extends AbstractActionController
         $data = $this->params()->fromPost();
         $form->setData($data);
 
-        if(!$form->isValid()) {
+        if (!$form->isValid()) {
             return $viewModel;
         }
 
